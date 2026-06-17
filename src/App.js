@@ -50,17 +50,21 @@ function App() {
   };
 
   return (
-    <div className="container">
+    <main className="container">
       <h1 className="title">
         🛡️ Plagiarism & AI Detection System
       </h1>
 
       <div className="form-group">
-        <label className="label">
+        <label
+          htmlFor="analysisType"
+          className="label"
+        >
           Analysis Type
         </label>
 
         <select
+          id="analysisType"
           className="select-box"
           value={analysisType}
           onChange={(e) =>
@@ -78,11 +82,15 @@ function App() {
       </div>
 
       <div className="form-group">
-        <label className="label">
+        <label
+          htmlFor="content"
+          className="label"
+        >
           Paste Content
         </label>
 
         <textarea
+          id="content"
           className="text-area"
           placeholder="Paste content here..."
           value={content}
@@ -93,11 +101,15 @@ function App() {
       </div>
 
       <div className="form-group">
-        <label className="label">
+        <label
+          htmlFor="fileUpload"
+          className="label"
+        >
           Upload File
         </label>
 
         <input
+          id="fileUpload"
           type="file"
           className="file-input"
           onChange={handleFileUpload}
@@ -111,6 +123,7 @@ function App() {
       </div>
 
       <button
+        type="button"
         className="analyze-btn"
         onClick={analyzeContent}
         disabled={loading}
@@ -121,29 +134,40 @@ function App() {
       </button>
 
       {result && (
-        <div className="result-card">
+        <section
+          className="result-card"
+          aria-live="polite"
+        >
           <h2 className="result-title">
             📊 Analysis Result
           </h2>
 
           <div className="result-item">
             <span>Plagiarism Score</span>
-            <span>{result.plagiarismScore}%</span>
+            <span>
+              {result.plagiarismScore}%
+            </span>
           </div>
 
           <div className="result-item">
             <span>Originality Score</span>
-            <span>{result.originalityScore}%</span>
+            <span>
+              {result.originalityScore}%
+            </span>
           </div>
 
           <div className="result-item">
             <span>AI Probability</span>
-            <span>{result.aiProbability}%</span>
+            <span>
+              {result.aiProbability}%
+            </span>
           </div>
 
           <div className="result-item">
             <span>Human Probability</span>
-            <span>{result.humanProbability}%</span>
+            <span>
+              {result.humanProbability}%
+            </span>
           </div>
 
           <div className="verdict">
@@ -152,10 +176,22 @@ function App() {
             )}
           </div>
 
-          
-        </div>
+          <div className="sources">
+            <h3>📚 Matched Sources</h3>
+
+            <ul>
+              {result.matchedSources.map(
+                (source, index) => (
+                  <li key={index}>
+                    {source}
+                  </li>
+                )
+              )}
+            </ul>
+          </div>
+        </section>
       )}
-    </div>
+    </main>
   );
 }
 
